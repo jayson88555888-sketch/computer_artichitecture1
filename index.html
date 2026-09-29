@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Computer Architecture</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #07152f;
+    color: white;
+}
+
+header {
+    background: linear-gradient(135deg, #0b2347, #092d5c);
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 2px solid #168cff;
+}
+
+header h1 {
+    margin: 0;
+    color: #4db8ff;
+    font-size: 30px;
+}
+
+header p {
+    color: #b8d9f5;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 20px;
+}
+
+.menu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.menu button {
+    padding: 18px;
+    border: 1px solid #168cff;
+    border-radius: 15px;
+    background: #0b2347;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.menu button:hover {
+    background: #168cff;
+    transform: translateY(-2px);
+}
+
+.section {
+    display: none;
+    background: #0b1f3d;
+    padding: 25px;
+    border-radius: 18px;
+    border: 1px solid #168cff;
+}
+
+.section.active {
+    display: block;
+}
+
+.card {
+    background: #102b50;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 15px;
+    border-left: 4px solid #168cff;
+}
+
+.card h3 {
+    color: #4db8ff;
+}
+
+.quiz-question {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.option {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    background: #102b50;
+    color: white;
+    border: 1px solid #286da8;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.option:hover {
+    background: #174875;
+}
+
+.correct {
+    background: #146b3a !important;
+}
+
+.wrong {
+    background: #8b2635 !important;
+}
+
+.main-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #168cff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.main-btn:hover {
+    background: #35a3ff;
+}
+
+.score {
+    font-size: 24px;
+    color: #4db8ff;
+    text-align: center;
+    margin: 20px;
+}
+
+.flashcard {
+    min-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 22px;
+    background: linear-gradient(135deg, #102b50, #0b3765);
+    border-radius: 20px;
+    padding: 30px;
+    cursor: pointer;
+}
+
+.pdf-box {
+    text-align: center;
+    padding: 30px;
+}
+
+a {
+    color: #4db8ff;
+}
+
+@media(max-width:600px) {
+    .menu {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>💻 COMPUTER ARCHITECTURE</h1>
+    <p>Learn • Practice • Test • Improve</p>
+</header>
+
+<div class="container">
+
+    <div class="menu">
+        <button onclick="showSection('learn')">
+            📚 Learn
+        </button>
+
+        <button onclick="showSection('quiz')">
+            🧠 Quiz
+        </button>
+
+        <button onclick="showSection('flashcards')">
+            🃏 Flashcards
+        </button>
+
+        <button onclick="showSection('pdf')">
+            📄 Study Material
+        </button>
+    </div>
+
+
+    <!-- LEARN -->
+
+    <div id="learn" class="section active">
+
+        <h2>📚 Computer Architecture Basics</h2>
+
+        <div class="card">
+            <h3>CPU</h3>
+            <p>
+                The CPU is the main processor of a computer.
+                It executes instructions and performs calculations.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>RAM</h3>
+            <p>
+                RAM temporarily stores data and programs that
+                the CPU is currently using.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Motherboard</h3>
+            <p>
+                The motherboard connects the CPU, RAM, storage,
+                GPU and other computer components.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Storage</h3>
+            <p>
+                Storage such as SSDs and HDDs keeps data even
+                when the computer is turned off.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>GPU</h3>
+            <p>
+                A GPU processes graphics and is especially useful
+                for games, video editing and 3D applications.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>Power Supply Unit</h3>
+            <p>
+                The PSU converts electrical power into suitable
+                power for the computer's components.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- QUIZ -->
+
+    <div id="quiz" class="section">
+
+        <h2>🧠 Computer Architecture Quiz</h2>
+
+        <div class="score">
+            Score: <span id="score">0</span>
+        </div>
+
+        <div id="quizArea"></div>
+
+    </div>
+
+
+    <!-- FLASHCARDS -->
+
+    <div id="flashcards" class="section">
+
+        <h2>🃏 Flashcards</h2>
+
+        <p>Click the card to reveal the answer.</p>
+
+        <div class="flashcard" onclick="flipCard()">
+            <span id="flashText">
+                What is the CPU?
+            </span>
+        </div>
+
+        <button class="main-btn" onclick="nextCard()">
+            Next Card
+        </button>
+
+    </div>
+
+
+    <!-- PDF -->
+
+    <div id="pdf" class="section">
+
+        <h2>📄 Study Material</h2>
+
+        <div class="pdf-box">
+
+            <p>
+                Open your Computer Architecture study material.
+            </p>
+
+            <button class="main-btn" onclick="openPDF()">
+                Open PDF
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   SECTION CONTROL
+========================= */
+
+function showSection(sectionID) {
+
+    document.querySelectorAll(".section").forEach(section => {
+        section.classList.remove("active");
+    });
+
+    document.getElementById(sectionID)
+        .classList.add("active");
+}
+
+
+/* =========================
+   QUIZ
+========================= */
+
+const questions = [
+
+    {
+        question: "What is the main function of the CPU?",
+        options: [
+            "Store files permanently",
+            "Execute instructions",
+            "Display images",
+            "Provide electricity"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Which component temporarily stores data used by the CPU?",
+        options: [
+            "RAM",
+            "SSD",
+            "PSU",
+            "GPU"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "Which component connects most computer hardware together?",
+        options: [
+            "CPU",
+            "RAM",
+            "Motherboard",
+            "Monitor"
+        ],
+        answer: 2
+    },
+
+    {
+        question: "Which component is mainly responsible for graphics processing?",
+        options: [
+            "PSU",
+            "GPU",
+            "RAM",
+            "SSD"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Which storage device normally keeps data after power is removed?",
+        options: [
+            "RAM",
+            "Cache",
+            "SSD",
+            "Register"
+        ],
+        answer: 2
+    },
+
+    {
+        question: "What does PSU stand for?",
+        options: [
+            "Power System Unit",
+            "Power Supply Unit",
+            "Processing System Utility",
+            "Primary Storage Unit"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "Which part performs arithmetic and logical operations?",
+        options: [
+            "ALU",
+            "PSU",
+            "SSD",
+            "Monitor"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "Which memory is usually faster and closer to the CPU?",
+        options: [
+            "Hard Disk",
+            "Cache",
+            "USB Drive",
+            "Optical Disc"
+        ],
+        answer: 1
+    }
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function loadQuiz() {
+
+    const q = questions[currentQuestion];
+
+    let html = `
+        <div class="quiz-question">
+            ${currentQuestion + 1}. ${q.question}
+        </div>
+    `;
+
+    q.options.forEach((option, index) => {
+
+        html += `
+            <button
+                class="option"
+                onclick="answerQuestion(${index})">
+                ${option}
+            </button>
+        `;
+
+    });
+
+    document.getElementById("quizArea").innerHTML = html;
+}
+
+
+function answerQuestion(selected) {
+
+    const q = questions[currentQuestion];
+
+    const buttons =
+        document.querySelectorAll(".option");
+
+    buttons.forEach(button => {
+        button.disabled = true;
+    });
+
+    if (selected === q.answer) {
+
+        buttons[selected].classList.add("correct");
+
+        score++;
+
+        document.getElementById("score")
+            .textContent = score;
+
+    } else {
+
+        buttons[selected].classList.add("wrong");
+
+        buttons[q.answer].classList.add("correct");
+
+    }
+
+    setTimeout(() => {
+
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+
+            loadQuiz();
+
+        } else {
+
+            document.getElementById("quizArea").innerHTML = `
+                <div class="score">
+                    🎉 Quiz Complete!
+                    <br><br>
+                    ${score} / ${questions.length}
+                </div>
+
+                <button class="main-btn"
+                    onclick="restartQuiz()">
+                    Try Again
+                </button>
+            `;
+
+        }
+
+    }, 1000);
+}
+
+
+function restartQuiz() {
+
+    currentQuestion = 0;
+    score = 0;
+
+    document.getElementById("score")
+        .textContent = score;
+
+    loadQuiz();
+}
+
+
+/* =========================
+   FLASHCARDS
+========================= */
+
+const flashcards = [
+
+    {
+        question: "What is the CPU?",
+        answer: "The CPU is the main processor that executes instructions."
+    },
+
+    {
+        question: "What is RAM?",
+        answer: "RAM temporarily stores data and programs currently being used."
+    },
+
+    {
+        question: "What is a motherboard?",
+        answer: "The motherboard connects the major components of a computer."
+    },
+
+    {
+        question: "What is a GPU?",
+        answer: "A GPU processes graphics and visual information."
+    },
+
+    {
+        question: "What is an SSD?",
+        answer: "An SSD is a storage device used to permanently store data."
+    },
+
+    {
+        question: "What is an ALU?",
+        answer: "The ALU performs arithmetic and logical operations."
+    }
+
+];
+
+let flashIndex = 0;
+let showingAnswer = false;
+
+
+function flipCard() {
+
+    showingAnswer = !showingAnswer;
+
+    if (showingAnswer) {
+
+        document.getElementById("flashText")
+            .textContent =
+            flashcards[flashIndex].answer;
+
+    } else {
+
+        document.getElementById("flashText")
+            .textContent =
+            flashcards[flashIndex].question;
+
+    }
+}
+
+
+function nextCard() {
+
+    flashIndex++;
+
+    if (flashIndex >= flashcards.length) {
+        flashIndex = 0;
+    }
+
+    showingAnswer = false;
+
+    document.getElementById("flashText")
+        .textContent =
+        flashcards[flashIndex].question;
+}
+
+
+/* =========================
+   PDF
+========================= */
+
+function openPDF() {
+
+    window.open(
+        "https://jayson88555888-sketch.github.io/basic-math/basic-math.pdf",
+        "_blank"
+    );
+
+}
+
+
+/* START QUIZ */
+
+loadQuiz();
+
+</script>
+
+</body>
+</html>
